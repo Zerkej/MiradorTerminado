@@ -1,0 +1,10 @@
+nav{
+    flex:auto;
+    border-top: 3px solid green;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      font-weight: bold;
+      text-align-last: center;
+}
+
+  

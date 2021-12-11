@@ -1,0 +1,47 @@
+<div style="text-align: center;">
+    <form novalidate [formGroup]="autor" form (ngSubmit)="agregarAutor()">
+      <div class="form-group">
+        <label>
+          <span>Nombre</span>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Nombre del autor"
+            formControlName="nombre"
+          />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          Nombre requerido
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>
+          <span>Apellidos</span>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Apellidos del autor"
+            formControlName="apellidos"
+          />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          Apellido requerido
+        </div>
+      </div>
+      <div>
+          <br>
+        <button type="submit" [disabled]="autor.invalid" class="btn btn-success">
+          Agregar autor
+        </button>
+      </div>
+    </form>
+    <p>Form value: {{ autor.value | json }}</p>
+    <p>Form status: {{ autor.status | json }}</p>
+  </div>

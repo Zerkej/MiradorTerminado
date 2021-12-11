@@ -1,0 +1,37 @@
+
+<div style="padding-left: 30px;">
+  <button class= "bottonAdd" ngbNavLink routerLink="/editoriales" routerLinkActive="active"> volver </button> 
+</div>
+
+<div style="text-align: center;">
+    <form novalidate [formGroup]="editorial" form (ngSubmit)="agregarEditorial()">
+      <div class="form-group">
+        <label>
+          <span>Nombre Editorial</span>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Nombre de la editorial"
+            formControlName="nombreEditorial"
+            [(ngModel)]="nombre"
+          />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          Nombre de la editorial requerida
+        </div>
+      </div>
+  
+      <div>
+          <br>
+        <button type="submit" [disabled]="editorial.invalid" class="btn btn-success" >
+          Agregar Editorial
+        </button>
+      </div>
+    </form>
+    <p>Form value: {{ editorial.value | json }}</p>
+    <p>Form status: {{ editorial.status | json }}</p>
+    <p>{{nombre}}</p>
+  </div>

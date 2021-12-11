@@ -1,0 +1,30 @@
+ngb-carousel{
+    background-color: rgb(101, 171, 97);
+    min-width: 300px;
+    flex:auto;
+    max-width: 120em;
+}
+.carousel-caption{
+    text-align: left;
+    margin-left: 800px;
+    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    max-width: 120em;
+}
+
+.subcaption{
+   font-size: 20px;
+   font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+.texto-cabezal{
+    font-style:  oblique;
+    text-align: center;
+    font-size:40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.subtexto-cabezal{
+    margin-left: 340px;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

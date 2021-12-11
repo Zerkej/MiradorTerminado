@@ -1,0 +1,95 @@
+<body>
+<div class="title">Stock actual </div>
+<div id="barraBusqueda">
+<div>
+    <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
+</div>
+
+<div id="barra">
+    <form>
+        <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
+        <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+    </form>
+</div>
+</div>
+<div class="divTable">   
+    <table class="table">
+
+         <thead class="tableTitles">
+              <th scope="col">Nombre</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Editorial</th>
+              <th scope="col">Stock</th>
+              <th scope="col">Stock minimo</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Opciones</th>
+
+         </thead>
+         <tbody>
+
+                   <tr>
+
+                        <th>
+                            <span>el conde de montecristo</span>
+                        </th>
+                        <td><span>William shakespeare</span></td>
+                        <td><span>El barco a Vapor</span></td>
+                        <td><span>8</span></td>
+                        <td><span>3</span></td>
+                        <td><span>6990</span></td>
+                   
+                        <td>
+                             <button button class="bottonMore">
+                   
+                                <i class="fas fa-plus-circle"></i>
+                        
+                             </button>
+
+                             <button class="bottonAdd">
+                   
+                                Cambiar Stock
+                           
+                             </button>
+
+                        </td>
+
+                   </tr>
+
+                   <tr>
+
+                    <th>
+                        <span>Demian</span>
+                    </th>
+                    <td><span>Herman hess</span></td>
+                    <td><span>El barco a Vapor</span></td>
+                    <td><span>17</span></td>
+                    <td><span>4</span></td>
+                    <td><span>16990</span></td>
+               
+                    <td>
+                         <button button class="bottonMore" >
+               
+                         Ver +
+                    
+                         </button>
+
+                         <button class="bottonAdd">
+               
+                         Cambiar Stock
+                       
+                         </button>
+
+                    </td>
+
+               </tr>
+              
+
+         </tbody>
+
+         </table>
+
+ </div>
+<div style="padding-left: 30px;">
+   <button class= "bottonAdd" ngbNavLink routerLink="/cambiarStock" routerLinkActive="active"> Agregar libro </button> 
+</div>
+</body> 

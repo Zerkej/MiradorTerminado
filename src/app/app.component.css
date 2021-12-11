@@ -1,0 +1,10 @@
+
+#cabecera{
+    background-color: white;
+}
+#barraSuperior{
+    background-color: rgb(101, 171, 97);
+    color:white;
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}

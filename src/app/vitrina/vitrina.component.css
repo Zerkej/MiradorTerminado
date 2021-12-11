@@ -1,0 +1,20 @@
+.accordion{
+     padding-left: 10px;
+     padding-right: 10px;
+}
+
+#barra{
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-left: 10px;
+}
+#busqueda{
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color:darkgreen;
+    padding-inline-end: 5cm;
+    padding-left: 10px;
+}
+.card-img-top{
+    width: 3cm;
+}

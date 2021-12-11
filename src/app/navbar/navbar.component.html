@@ -1,0 +1,30 @@
+<nav id="navBar">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['welcome']" routerLinkActive="active">Home</a>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['vitrina']" routerLinkActive="active">Vitrina</a>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['login']" routerLinkActive="active">login</a>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['stock']" routerLinkActive="active">Stock</a>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['autores']" routerLinkActive="active">Autores</a>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['editoriales']" routerLinkActive="active">editoriales</a>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink [routerLink]="['enviarConsulta']" routerLinkActive="active">Enviar Consulta</a>
+        </li>
+      </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </nav>
+
+  <router-outlet></router-outlet>
+
+  

@@ -1,0 +1,77 @@
+
+<body>
+    <div class="title">Autores actuales </div>
+    <div id="barraBusqueda">
+    <div>
+        <div id="busqueda" ><b>Buscar autor por nombre</b></div>
+    </div>
+    
+    <div id="barra">
+        <form>
+            <input type="text" placeholder="Ejemplo: Shakespeare" name="Buscador">  
+            <button class="bottonSearch" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        </form>
+    </div>
+    </div>
+
+    <div class="divTable">   
+        <table class="table">
+    
+             <thead class="tableTitles">
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+    
+             </thead>
+             <tbody>
+    
+                       <tr>
+    
+                            <th>
+                                <span>Lucy</span>
+                            </th>
+                            <td><span>Morales</span></td>
+
+                       
+                            <td>
+                                 <button button class="bottonMore">
+                       
+                                    <i class="fas fa-minus-circle"></i>
+                            
+                                 </button>
+    
+    
+                            </td>
+    
+                       </tr>
+    
+                       <tr>
+    
+                        <th>
+                            <span>Elizabeth</span>
+                        </th>
+                        <td><span>Molina</span></td>
+
+                   
+                        <td>
+                             <button button class="bottonMore" >
+                   
+                             Ver +
+                        
+                             </button>
+    
+                        </td>
+    
+                   </tr>
+                  
+    
+             </tbody>
+    
+             </table>
+    
+     </div>
+
+<div style="padding-left: 30px;">
+    <button class= "bottonAdd" [routerLink]="['agregarAutor']" routerLinkActive="active"> Agregar Autor </button> 
+ </div>
+
+ 

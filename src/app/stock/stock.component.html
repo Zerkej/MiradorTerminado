@@ -20,23 +20,21 @@
               <th scope="col">Autor</th>
               <th scope="col">Editorial</th>
               <th scope="col">Stock</th>
-              <th scope="col">Stock minimo</th>
               <th scope="col">Valor</th>
               <th scope="col">Opciones</th>
 
          </thead>
          <tbody>
 
-                   <tr>
+                   <tr *ngFor='let libro of libros'>
 
                         <th>
-                            <span>el conde de montecristo</span>
+                            <span>{{libro.nombre}}</span>
                         </th>
-                        <td><span>William shakespeare</span></td>
-                        <td><span>El barco a Vapor</span></td>
-                        <td><span>8</span></td>
-                        <td><span>3</span></td>
-                        <td><span>6990</span></td>
+                        <td><span></span></td>
+                        <td><span>{{libro.editorial}}</span></td>
+                        <td><span>{{libro.cantidad}}</span></td>
+                        <td><span>{{libro.precio}}</span></td>
                    
                         <td>
                              <button button class="bottonMore">
@@ -54,34 +52,6 @@
                         </td>
 
                    </tr>
-
-                   <tr>
-
-                    <th>
-                        <span>Demian</span>
-                    </th>
-                    <td><span>Herman hess</span></td>
-                    <td><span>El barco a Vapor</span></td>
-                    <td><span>17</span></td>
-                    <td><span>4</span></td>
-                    <td><span>16990</span></td>
-               
-                    <td>
-                         <button button class="bottonMore" >
-               
-                         Ver +
-                    
-                         </button>
-
-                         <button class="bottonAdd">
-               
-                         Cambiar Stock
-                       
-                         </button>
-
-                    </td>
-
-               </tr>
               
 
          </tbody>

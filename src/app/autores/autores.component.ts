@@ -10,6 +10,9 @@ export class AutoresComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    
+
   }
 
 }

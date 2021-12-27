@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +22,7 @@ import { AutoresComponent } from './autores/autores.component';
 import { EditorialesComponent } from './editoriales/editoriales.component';
 import { AgregarLibroComponent } from './agregar-libro/agregar-libro.component';
 import { EnviarConsultaComponent } from './enviar-consulta/enviar-consulta.component';
+
 
 
 @NgModule({
@@ -44,8 +47,12 @@ import { EnviarConsultaComponent } from './enviar-consulta/enviar-consulta.compo
   ],
   imports: [
     ReactiveFormsModule,
+    CommonModule,
     BrowserModule,
+    FormsModule,
     NgbModule,
+    HttpClientModule,
+    
     RouterModule.forRoot(
       [{path: 'welcome', component: CarouselComponent},
       {path: 'login', component: LoginComponent},

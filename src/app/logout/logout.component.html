@@ -1,0 +1,22 @@
+<div class="title" style="text-align: center;">¿Seguro deseas cerrar la sesión? </div>
+
+<div style="text-align: center;">
+    <div class="form-group">
+        <label>
+            <span>{{usuarioActual.nombre}} {{usuarioActual.apellido}} </span>
+        </label>
+    </div>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <br>
+        <button type="submit" class =" bottonDel"
+        
+        type="submit" ngbNavLink routerLink="/inicio" routerLinkActive="active" (click)="logOut()">
+        
+            Cerrar sesión
+        </button>
+        <button  class ="bottonMore" type="submit" ngbNavLink routerLink="/inicio" routerLinkActive="active" >
+            cancelar
+        </button>
+    </div>

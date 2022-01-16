@@ -1,16 +1,21 @@
+<div class="title"><span>Autores actuales <span *ngIf="editar==true">/ Editar autor</span></span></div>
 
-<body>
-    <div class="title">Autores actuales </div>
+<div *ngIf="editar==false">
+    <div style="padding-left: 30px;">
+        <button class= "bottonAdd" [routerLink]="['agregarAutor']" routerLinkActive="active"> Agregar Autor </button> 
+    </div>
     <div id="barraBusqueda">
     <div>
         <div id="busqueda" ><b>Buscar autor por nombre</b></div>
     </div>
     
     <div id="barra">
-        <form>
-            <input type="text" placeholder="Ejemplo: Shakespeare" name="Buscador">  
-            <button class="bottonSearch" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
-        </form>
+        <form (ngSubmit)="filtrarAutores()">
+            <input type="text" placeholder="filtrar por nombre" name="filtro" [(ngModel)]="filtro">
+            <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+          </form>
+          <div id="busqueda"><strong>+</strong> </div>
+          <button class type="submit"(click)="restablecerAutores()" class="bottonMore" >restablecer Autores</button>
     </div>
     </div>
 
@@ -19,49 +24,32 @@
     
              <thead class="tableTitles">
                   <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">Acción</th>
     
              </thead>
              <tbody>
+                <tr *ngFor='let autor of autores' >
     
-                       <tr>
-    
-                            <th>
-                                <span>Lucy</span>
-                            </th>
-                            <td><span>Morales</span></td>
+                    <th>
+                        <span>{{autor.nombre}}</span>
+                    </th>
+                    
+                    <td>
+                        <span>{{autor.apellido}}</span>
+                   </td>
 
-                       
-                            <td>
-                                 <button button class="bottonMore">
-                       
-                                    <i class="fas fa-minus-circle"></i>
-                            
-                                 </button>
-    
-    
-                            </td>
-    
-                       </tr>
-    
-                       <tr>
-    
-                        <th>
-                            <span>Elizabeth</span>
-                        </th>
-                        <td><span>Molina</span></td>
+                    <td>
+                         <button button class="bottonEdit" (click)="obtenerAutorEditar(autor)">
+               
+                            Editar
+                    
+                         </button>
 
-                   
-                        <td>
-                             <button button class="bottonMore" >
-                   
-                             Ver +
-                        
-                             </button>
-    
-                        </td>
-    
-                   </tr>
+
+                    </td>
+
+               </tr>
                   
     
              </tbody>
@@ -70,8 +58,49 @@
     
      </div>
 
-<div style="padding-left: 30px;">
-    <button class= "bottonAdd" [routerLink]="['agregarAutor']" routerLinkActive="active"> Agregar Autor </button> 
- </div>
+</div>
 
- 
+ <div *ngIf ="editar==true">
+<div style="padding-left: 30px;">
+   <button class="bottonMore" (click)="volverAutores()">volver</button> 
+</div>     
+
+    <div class ="formulario">
+        <form  novalidate [formGroup]="autoresNombre" form (ngSubmit)="editarNombreAutor()">
+
+                <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+                    <label for="cantdidadEditada">Nombres al que desea cambiar</label>
+                    <input class="form-control" type="text" formControlName="entradaNombres" placeholder="Ingrese los apellidos para cambiar" [(ngModel)]="nombresCambiar">
+                    <label for="cantdidadEditada">Nombres anterior del autor : {{autor.nombre}}</label>
+                </div>
+
+                <div style="padding-left: 5cm">
+                <br>
+                    <button type="submit" [disabled]="autoresNombre.invalid" class="btn btn-success">
+                        Editar nombres del autor
+                    </button>
+                </div>
+      
+        </form>
+
+        <form  novalidate [formGroup]="autoresApellidos" form (ngSubmit)=" editarApellidoAutor()">
+
+                <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+                    <label for="cantdidadEditada">Apellidos al que desea cambiar</label>
+                    <input class="form-control"  type="text" formControlName="entradaApellidos" placeholder="Ingrese los apellidos para cambiar" [(ngModel)]="apellidosCambiar">
+                    <label for="cantdidadEditada">Apellidos anterior del autor : {{autor.apellido}}</label>
+                </div>
+
+                <div style="padding-left: 5cm">
+                <br>
+                    <button type="submit" [disabled]="autoresApellidos.invalid" class="btn btn-success">
+                        Editar apellidos del autor
+                    </button>
+                </div>
+  
+       </form>
+
+      </div>
+
+
+ </div>

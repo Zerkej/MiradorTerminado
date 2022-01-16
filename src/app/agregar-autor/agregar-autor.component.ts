@@ -5,6 +5,8 @@ import {
   Validators
 } from "@angular/forms";
 import Swal from 'sweetalert2';
+import { Iautor, IautorAgregar } from '../interfaces/interfaces';
+import { commonService } from '../service/common.service';
 
 @Component({
   selector: 'app-agregar-autor',
@@ -13,9 +15,16 @@ import Swal from 'sweetalert2';
 })
 export class AgregarAutorComponent implements OnInit {
 
+  autorAgregar:IautorAgregar={
+    nombre:"",
+    apellido:""
+}
   autor!: FormGroup;
+  apellido: String ="";
+  nombre: String = "";
 
-  constructor(private _fb: FormBuilder ) { }
+
+  constructor(private _fb: FormBuilder , private commonService: commonService ) { }
 
   createForm() {
     this.autor = this._fb.group({
@@ -24,12 +33,19 @@ export class AgregarAutorComponent implements OnInit {
     });
   }
 
+  
   ngOnInit(): void {
     this.createForm();
   }
-  public agregarAutor(){
-    Swal.fire('se ha guardado el autor','el autor ha sido registrada con exito');
 
+  public agregarAutor(){
+    this.autorAgregar.nombre=this.nombre;
+    this.autorAgregar.apellido=this.apellido
+    if(this.autorAgregar!=undefined){
+      this.commonService.postAutor(this.autorAgregar).subscribe(data=>{
+        Swal.fire('se ha guardado el autor','el autor ha sido registrada con exito');
+      });
+    }
   }
 
 }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CambiarStockComponent } from './cambiar-stock.component';
+import { HistorialComponent } from './historial.component';
 
-describe('CambiarStockComponent', () => {
-  let component: CambiarStockComponent;
-  let fixture: ComponentFixture<CambiarStockComponent>;
+describe('HistorialComponent', () => {
+  let component: HistorialComponent;
+  let fixture: ComponentFixture<HistorialComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CambiarStockComponent ]
+      declarations: [ HistorialComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CambiarStockComponent);
+    fixture = TestBed.createComponent(HistorialComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,3 +12,19 @@
     background-color: green;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.formulario{
+    padding-left:5em; 
+    padding-right:5em;
+}
+
+.title{
+    padding-left: 2cm;
+    padding-top: 0.5em;
+    border-right: 5cm;
+    font-size: xx-large;
+    font-weight: 500;
+    color:green;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}

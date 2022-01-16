@@ -1,0 +1,110 @@
+<div class="title">Historial de Stock<span *ngIf="verMasVentana==true">/ especificación de una transferencia</span></div>
+<div *ngIf="verMasVentana==false">
+    
+    <div style ="padding-left: 30px;">
+        <div id="busqueda" ><b>filtrar por fecha</b></div>
+    <form>
+        <input type="date" name="filtro" [(ngModel)]="filtro">
+        <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+    </form>
+    </div>
+
+    <div class="divTable">   
+        <table class="table">
+    
+             <thead class="tableTitles">
+                  <th scope="col">Libro</th>
+                  <th scope="col">Editorial</th>
+                  <th scope="col">Tipo de movimiento</th>
+                  <th scope="col">cantidad</th>
+                  <th scope="col">fecha</th>
+                  <th scope="col">opciones</th>
+    
+             </thead>
+             <tbody>
+            
+                       <tr *ngFor='let salida of salidas' >
+                           
+                            <th>
+                                <span>{{salida.libro.nombre}}</span>
+                            </th>
+
+                            <th>
+                                <span>{{salida.libro.editorial.nombre}}</span>
+                            </th>
+
+                            <th>
+                                <span>{{salida.tipo}}</span>
+                            </th>
+                            
+                            <th>
+                                <span>{{salida.cantidad}}</span>
+                            </th>
+                            
+                            <th>
+                                <span>{{salida.fecha | date:"dd-MM-yyyy  hh:mm"}}</span>
+                            </th>
+
+                            <td>
+                                 <button button class="bottonMore" (click)="irAVerMasSalida(salida)">
+                       
+                                    ver más
+                            
+                                 </button>
+    
+                            </td>
+    
+                       </tr>
+                
+             </tbody>
+    
+             </table>
+    
+     </div>
+</div>
+<br>
+<!-- codigo HTML para ver más -->
+
+     <div *ngIf="verMasVentana==true">
+
+        <div class="title" style="text-align:center; ">Especificación de la salida </div>
+            <div style="text-align: center;">
+                <div>
+                    <label>
+                        <h5>Tipo</h5>
+                        <span>{{salidaVerMas.tipo}}</span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <h5>Cantidad</h5>
+                        <span>{{salidaVerMas.cantidad}}</span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <h5>Fecha</h5>
+                        <span>{{salidaVerMas.fecha| date:"dd-MM-yyyy  hh:mm"}}</span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <h5>Libro</h5>
+                        <span>{{salidaVerMas.libro.nombre}}</span>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <h5>Vendedor</h5>
+                        <span>{{salidaVerMas.vendedor.nombre}} {{salidaVerMas.vendedor.apellido}}</span>
+                    </label>
+                </div>
+            <br>
+            </div>
+                <div style="text-align: center;">
+                    <button  class ="bottonMore" (click)="volverASalidas()">
+                        volver
+                    </button>
+                </div>
+            </div>
+

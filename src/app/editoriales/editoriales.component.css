@@ -1,0 +1,119 @@
+.title{
+    padding-left: 2cm;
+    padding-top: 0.5em;
+    border-right: 5cm;
+    font-size: xx-large;
+    font-weight: 500;
+    color:green;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.divTable{
+    padding: 1em;
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    font-size:small;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    overflow-x: auto;
+    
+}
+
+.table{
+    border-top-style: hidden;
+    table-layout:auto;
+    font-weight: bold;
+    text-align: center;
+    table-layout: fixed;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    min-width: 500px;
+  }
+
+.tableTitles{
+    font-size:large;
+    color:green;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+#barra{
+    font-size: medium;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#busqueda{
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color:darkgreen;
+    padding-inline-end: 5cm;
+}
+#barraBusqueda{
+    padding-top: 1cm;
+    float: right
+}
+.bottonAdd{
+    font-weight: bold;
+    flex:auto;
+    font-size: small;
+    text-align: Center;
+    border-radius: 4px;
+    display:inline-flex;
+    padding: 5px 25px;
+    color:white;
+    text-align-last: center;
+    border-style: hidden;
+    background-color: green;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.bottonMore{
+    text-align: Center;
+    border-radius: 4px;
+    color:white;
+    text-align:center;
+    border-style: hidden;
+    background-color: darkgrey;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.bottonSearch{
+    text-align: Center;
+    border-radius: 4px;
+    color:white;
+    text-align:center;
+    border-style: hidden;
+    background-color: darkgrey;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bottonDel{
+    text-align: Center;
+    border-radius: 4px;
+    display:inline-flex;
+    padding: 5px 25px;
+    color:white;
+    text-align-last: center;
+    border-style: hidden;
+    background-color: red;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bottonMore{
+    text-align: Center;
+    border-radius: 4px;
+    padding: 5px 25px;
+    color:white;
+    text-align:center;
+    border-style: hidden;
+    background-color: darkgrey;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bottonEdit{
+    text-align: Center;
+    border-radius: 4px;
+    display:inline-flex;
+    padding: 5px 25px;
+    color:white;
+    text-align-last: center;
+    border-style: hidden;
+    background-color: lightseagreen;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,44 @@
+.bottonSearch{
+    text-align: Center;
+    border-radius: 4px;
+    color:white;
+    text-align:center;
+    border-style: hidden;
+    background-color: darkgrey;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bottonDel{
+    text-align: Center;
+    border-radius: 4px;
+    display:inline-flex;
+    padding: 5px 25px;
+    color:white;
+    text-align-last: center;
+    border-style: hidden;
+    background-color: red;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bottonMore{
+    text-align: Center;
+    border-radius: 4px;
+    padding: 5px 25px;
+    color:white;
+    text-align:center;
+    border-style: hidden;
+    background-color: darkgrey;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.bottonEdit{
+    text-align: Center;
+    border-radius: 4px;
+    display:inline-flex;
+    padding: 5px 25px;
+    color:white;
+    text-align-last: center;
+    border-style: hidden;
+    background-color: lightseagreen;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

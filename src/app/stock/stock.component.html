@@ -1,65 +1,186 @@
-<body>
-<div class="title">Stock actual </div>
-<div id="barraBusqueda">
-<div>
-    <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
+<div class="title"><span>Stock actual <span *ngIf="cambiarStock==true">/ cambiarStock</span><span *ngIf="bajoStock==true">/ bajo Stock</span></span></div>
+
+<div *ngIf="cambiarStock==false && bajoStock==false">
+        <div style="padding-left: 30px;">
+        <button class= "bottonAdd" ngbNavLink routerLink="/stock/agregarLibro" routerLinkActive="active"> Agregar libro </button> 
+        <button class= "bottonMore" (click)="irABajoStock()"> ver Bajo Stock</button> 
+        <button class= "bottonEdit" (click) = "openPDF()">imprimit pdf</button>
+        </div>
+    <div id="barraBusqueda">
+    <div>
+        <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
+    </div>
+
+    <div id="barra">
+        <form>
+            <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
+            <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        </form>
+    </div>
+    </div>
+    <div id="htmlData" class="divTable">   
+        <table class="table">
+
+            <thead class="tableTitles">
+                <th scope="col">Nombre</th>
+                <th scope="col">Autores</th>
+                <th scope="col">Editorial</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Stock minimo</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Opciones</th>
+
+            </thead>
+            <tbody>
+                    <tr *ngFor='let libro of libros'>                                                
+                            <th>
+                                <span>{{libro.nombre}}</span>
+                           </th>
+                            <div *ngFor='let idAutor of libro.autor'>
+                              <div *ngFor='let autor of autor'>
+                                    <th *ngIf ="idAutor==autor.id_autor">{{autor.nombre}} {{autor.apellido}}</th> 
+                              </div>
+                            </div>
+                            <td><span>{{libro.editorial.nombre}}</span></td>
+                            <td><span>{{libro.cantidad}}</span></td>
+                            <td><span>{{libro.cantidad_min}}</span></td>
+                            <td><span>$</span><span>{{libro.precio}}</span></td>
+                    
+                            <td>
+                                <button  id ="bottonMore" type="button">
+                                    Ver más
+                                </button>
+
+                                <button class="bottonAdd" (click)="cambiarStockPestana(libro)">
+                                    Cambiar Stock               
+                                </button>
+                            </td>
+                    </tr>
+                
+                </tbody>
+
+            </table>
+
+    </div>
+
 </div>
 
-<div id="barra">
-    <form>
-        <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
-        <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
-    </form>
+<!--cambia a cambio de Stock-->
+<div *ngIf="cambiarStock==true">
+
+    <div style="text-align: center;">
+        <form novalidate [formGroup]="stockCambiar" form (ngSubmit)="crearCambiarStock()">
+            <span>Stock actual del libro : {{libroCambiarStock.cantidad}}</span>
+          <div class="form-group">
+            <label>
+              <span>Cantidad</span>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Cantidad"
+                formControlName="entradaNumerica"
+                [(ngModel)]="cantidad"
+              />
+            </label>
+            <div
+              class="error"
+              style="color: red;"
+            >
+              cantidad requerida
+            </div>
+          </div>
+      
+          <div class="form-group">
+            <label>
+              <span>Motivo</span>
+              <select class="form-control"
+                type="text"
+                formControlName="entradaLetras"
+                placeholder="Motivo"
+                [(ngModel)]="motivo" >
+            <option>Venta</option>
+            <option>Retiro de Stock</option>
+            <option>ingreso de Stock</option>
+            </select>
+            </label>
+            <div
+              class="error"
+              style="color: red;"
+            >
+              Motivo requerido
+
+            </div>
+          </div>
+          <div>
+              <br>
+            <button type="submit" [disabled]="stockCambiar.invalid" class="btn btn-success">
+              cambiarStock
+            </button>
+          </div>
+        </form>
+      </div>
+      <div style="padding-left: 2cm">
+            <button  class ="bottonMore" type="submit" (click)="volverStock()">
+                        Volver
+            </button>
+
+      </div>
+        
+
 </div>
+
+<!--se cambia a stock bajo cantidad minima-->
+<div *ngIf="bajoStock==true">
+  <div style="padding-left: 30px;">
+    <button class= "bottonAdd" (click)="volverStockDesdeMinimo()"> volver a Stock</button> 
+    </div>
+    <div id="barraBusqueda">
+    <div>
+        <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
+    </div>
+
+    <div id="barra">
+        <form>
+            <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
+            <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        </form>
+    </div>
+    </div>
+    <div class="divTable">   
+        <table class="table">
+
+            <thead class="tableTitles">
+                <th scope="col">Nombre</th>
+                <th scope="col">Autor/es</th>
+                <th scope="col">Editorial</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Stock Minimo</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Opciones</th>
+
+            </thead>
+            <tbody>
+
+                    <tr *ngFor='let libro of bajoCantidadMinima'>        
+                            <th>
+                                <span>{{libro.nombre}}</span>
+                            </th>
+                            <td>
+                                <span></span></td>
+                            <td><span>{{libro.editorial.nombre}}</span></td>
+                            <td><span>{{libro.cantidad}}</span></td>
+                            <td><span>{{libro.cantidad_min}}</span></td>
+                            <td><span>$</span><span>{{libro.precio}}</span></td>
+                    
+                            <td>
+                                <button  id ="bottonMore" type="button">
+                                    Ver más
+                                </button>
+                    </tr>
+                
+                </tbody>
+
+            </table>
+
+    </div>
 </div>
-<div class="divTable">   
-    <table class="table">
-
-         <thead class="tableTitles">
-              <th scope="col">Nombre</th>
-              <th scope="col">Autor</th>
-              <th scope="col">Editorial</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Opciones</th>
-
-         </thead>
-         <tbody>
-
-                   <tr *ngFor='let libro of libros'>
-
-                        <th>
-                            <span>{{libro.nombre}}</span>
-                        </th>
-                        <td><span></span></td>
-                        <td><span>{{libro.editorial}}</span></td>
-                        <td><span>{{libro.cantidad}}</span></td>
-                        <td><span>{{libro.precio}}</span></td>
-                   
-                        <td>
-                             <button button class="bottonMore">
-                   
-                                <i class="fas fa-plus-circle"></i>
-                        
-                             </button>
-
-                             <button class="bottonAdd">
-                   
-                                Cambiar Stock
-                           
-                             </button>
-
-                        </td>
-
-                   </tr>
-              
-
-         </tbody>
-
-         </table>
-
- </div>
-<div style="padding-left: 30px;">
-   <button class= "bottonAdd" ngbNavLink routerLink="/cambiarStock" routerLinkActive="active"> Agregar libro </button> 
-</div>
-</body> 

@@ -1,52 +1,47 @@
+<div class="title"><span>Autores actuales/ agregar Autor</span></div>
 <br>
 <div style="padding-left: 30px;">
   <button class= "bottonVolver" ngbNavLink routerLink="/autores" routerLinkActive="active"> volver </button> 
 </div>
 <br>
-<div style="text-align: center;">
-    <form novalidate [formGroup]="autor" form (ngSubmit)="agregarAutor()">
-      <div class="form-group">
-        <label>
-          <span>Nombre</span>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Nombre del autor"
-            formControlName="nombre"
-          />
-        </label>
-        <div
+
+<div class ="formulario">
+  <form  novalidate [formGroup]="autor" form (ngSubmit)="agregarAutor()">
+    <div class="form-group">
+      <label for="editorial">Nombre Autor</label>
+      <input class="form-control" id="editorial" type="text" formControlName="nombre" placeholder="Nombre del Autor" [(ngModel)]="nombre">
+      <div
           class="error"
           style="color: red;"
-        >
-          Nombre requerido
-        </div>
+      >
+          Nombre del autor requerido
       </div>
-  
-      <div class="form-group">
-        <label>
-          <span>Apellidos</span>
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Apellidos del autor"
-            formControlName="apellidos"
-          />
-        </label>
-        <div
+    </div>
+    <div class="form-group">
+      <label for="editorial">Apellido</label>
+      <input class="form-control" id="editorial" type="text" formControlName="apellidos" placeholder="Nombre de Editorial" [(ngModel)]="apellido">
+      <div
           class="error"
           style="color: red;"
-        >
-          Apellido requerido
-        </div>
+      >
+          apellido del autor requerido
       </div>
-      <div>
-          <br>
+    </div>
+    
+    <div>
+    <br>
         <button type="submit" [disabled]="autor.invalid" class="btn btn-success">
-          Agregar autor
+          Agregar Editorial
         </button>
-      </div>
-    </form>
-    <p>Form value: {{ autor.value | json }}</p>
-    <p>Form status: {{ autor.status | json }}</p>
-  </div>
+    </div>
+
+  </form>
+</div>
+
+  
+
+  <br>
+<div style="padding-left: 30px;">
+  <button class= "bottonVolver" ngbNavLink routerLink="/editoriales" routerLinkActive="active"> ir a Editoriales </button> 
+</div>
+<br>

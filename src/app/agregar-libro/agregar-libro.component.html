@@ -1,1 +1,142 @@
-<p>agregar-libro works!</p>
+<br>
+<!--boton para volver-->
+<div style="padding-left: 30px;">
+  <button class= "bottonVolver" ngbNavLink routerLink="/stock" routerLinkActive="active"> volver </button> 
+</div>
+<br>
+
+<!--formulario-->
+<div style="text-align: center;">
+    <form novalidate [formGroup]="libro" form (ngSubmit)="agregarLibro()">
+      <div class="form-group">
+        <label>
+          <span>nombre del libro</span>
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Igrese Nombre"
+            formControlName="nombre"
+            [(ngModel)]="nombre"
+          />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          nombre requerida
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>
+          <span>precio</span>
+          <input 
+            class="form-control"
+            type="text"
+            formControlName="valor"
+            placeholder="ingrese un precio"
+            [(ngModel)]="precio"/>
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          precio requerido
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>cantidad</span>
+          <input 
+            class="form-control"
+            type="text"
+            formControlName="stock"
+            placeholder="Ingrese cantidad"
+            [(ngModel)]="cantidad" />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          cantidad requerido
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>descripción</span>
+          <input 
+            class="form-control"
+            type="text"
+            formControlName="entradadescripcion"
+            placeholder="Ingrese una descripción"
+            [(ngModel)]="descripcion" />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          descripción
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>formato</span>
+          <input 
+            class="form-control"
+            type="text"
+            formControlName="formatoLibro"
+            placeholder="Ingrese un formato"
+            [(ngModel)]="formato" />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          formato requerido
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <span>stock minimo</span>
+          <input 
+            class="form-control"
+            type="text"
+            formControlName="stock_min"
+            placeholder="ingrese el stock minimo"
+            [(ngModel)]="cantidad_min" />
+        </label>
+        <div
+          class="error"
+          style="color: red;"
+        >
+          formato requerido
+
+        </div>
+      </div>
+
+      <div>
+          <br>
+        <button type="submit" [disabled]="libro.invalid" class="btn btn-success">
+          agregar Libro
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!--boton cancelar-->
+  <div style="padding-left: 2cm">
+        <button  class ="bottonVolver" ngbNavLink routerLink="/stock" routerLinkActive="active" type="submit">
+                    cancelar
+        </button>
+
+  </div>
+
+

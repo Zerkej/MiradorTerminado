@@ -1,36 +1,41 @@
 <div>
     <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
 </div>
-
 <div id="barra">
     <form>
         <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
         <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
     </form>
 </div>
-    
-    <br>
-    <div class ="accordion">
-    
-        <div>
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
-                                    <h5 style="padding-left: 1cm;">El conde de montecristo</h5>
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+     <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5" > 
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" >
+                <div class="col mb-5" *ngFor='let libro of libros'>
+                    <div class="card h-100" >
+                        <!-- Product image-->
+                        <br>
+                        <img class="card-img-top" [src]="libro.imagen" style="width: 100px;margin-left: auto;
+                        margin-right: auto;" alt="...">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{libro.nombre}}</h5>
+                                <!-- Product editorial-->
+                                <h6 class="fw-bolder">{{libro.editorial.nombre}}</h6>
+                                <!-- Product price-->
+                                ${{libro.precio}}
                             </div>
                         </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver más</a></div>
                         </div>
-                     </div>
-                <br>        
+                    </div>
+                </div>
+            </div>
         </div>
-     </div>   
+      </section>
  
     <br id="salto">
     

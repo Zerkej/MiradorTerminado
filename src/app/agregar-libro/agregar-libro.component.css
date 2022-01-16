@@ -1,0 +1,14 @@
+.bottonVolver{
+    font-weight: bold;
+    flex:auto;
+    font-size: small;
+    text-align: Center;
+    border-radius: 4px;
+    display:inline-flex;
+    padding: 5px 25px;
+    color:white;
+    text-align-last: center;
+    border-style: hidden;
+    background-color: darkgray;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}

@@ -31,6 +31,5 @@ export class EnviarConsultaComponent implements OnInit {
   
   public agregarEditorial(){
     Swal.fire('Correo enviado con exito');
-
   }
 }

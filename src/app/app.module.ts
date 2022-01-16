@@ -1,48 +1,50 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CommonModule,DatePipe } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CarouselComponent } from './carousel/carousel.component';
+import { InicioComponent } from './Inicio/inicio.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { VitrinaComponent } from './vitrina/vitrina.component';
 import { StockComponent } from './stock/stock.component';
 import { AgregarAutorComponent } from './agregar-autor/agregar-autor.component';
 import { AgregarEditorialComponent } from './agregar-editorial/agregar-editorial.component';
-import { CerrarSesionComponent } from './cerrar-sesion/cerrar-sesion.component';
-import { CambiarStockComponent } from './cambiar-stock/cambiar-stock.component';
 import { AutoresComponent } from './autores/autores.component';
 import { EditorialesComponent } from './editoriales/editoriales.component';
 import { AgregarLibroComponent } from './agregar-libro/agregar-libro.component';
 import { EnviarConsultaComponent } from './enviar-consulta/enviar-consulta.component';
+import { HistorialComponent } from './historial/historial.component';
+import { AuthInterceptorService } from './auth-interceptor.service';
+import { LogoutComponent } from './logout/logout.component';
+import { VigilanteGuard } from './vigilante.guard';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CarouselComponent,
+    InicioComponent,
     LoginComponent,
     PageNotFoundComponent,
-    RegisterComponent,
     NavbarComponent,
     VitrinaComponent,
     StockComponent,
     AgregarAutorComponent,
     AgregarEditorialComponent,
-    CerrarSesionComponent,
-    CambiarStockComponent,
     AutoresComponent,
     EditorialesComponent,
     AgregarLibroComponent,
     EnviarConsultaComponent,
+    HistorialComponent,
+    LogoutComponent,
 
   ],
   imports: [
@@ -54,22 +56,23 @@ import { EnviarConsultaComponent } from './enviar-consulta/enviar-consulta.compo
     HttpClientModule,
     
     RouterModule.forRoot(
-      [{path: 'welcome', component: CarouselComponent},
+      [{path:'inicio', component: InicioComponent},
       {path: 'login', component: LoginComponent},
+      {path: 'logout', component: LogoutComponent, canActivate: [VigilanteGuard]},
       {path: 'vitrina', component: VitrinaComponent},
-      {path: 'stock', component: StockComponent},
-      {path: 'cambiarStock', component: CambiarStockComponent},
-      {path: 'agregarLibro', component: AgregarLibroComponent},
-      {path: 'autores', component: AutoresComponent},
-      {path: 'autores/agregarAutor', component: AgregarAutorComponent},
-      {path: 'editoriales',component: EditorialesComponent},
-      {path: 'editoriales/agregarEditorial', component: AgregarEditorialComponent},
+      {path: 'stock', component: StockComponent,canActivate: [VigilanteGuard]},
+      {path: 'stock/agregarLibro', component: AgregarLibroComponent,canActivate: [VigilanteGuard]},
+      {path: 'autores', component: AutoresComponent,canActivate: [VigilanteGuard]},
+      {path: 'autores/agregarAutor', component: AgregarAutorComponent,canActivate: [VigilanteGuard]},
+      {path: 'editoriales',component: EditorialesComponent,canActivate: [VigilanteGuard]},
+      {path: 'editoriales/agregarEditorial', component: AgregarEditorialComponent,canActivate: [VigilanteGuard]},
+      {path: 'historial',component: HistorialComponent,canActivate: [VigilanteGuard]},
       {path: 'enviarConsulta',component:EnviarConsultaComponent},
       {path: '',redirectTo:'welcome', pathMatch:'full'},
       {path: '**', component:PageNotFoundComponent}]
     )
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DatePipe, CookieService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

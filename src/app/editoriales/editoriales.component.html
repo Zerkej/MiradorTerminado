@@ -1,16 +1,21 @@
+<div class="title">Editoriales actuales<span *ngIf="editar==true">/ editar editorial</span></div>
 
-<body>
-    <div class="title">Autores actuales </div>
+<div *ngIf="editar==false">
+    <div style="padding-left: 30px;">
+        <button class= "bottonAdd" [routerLink]="['agregarEditorial']" routerLinkActive="active"> Agregar editorial </button> 
+     </div>
     <div id="barraBusqueda">
     <div>
-        <div id="busqueda" ><b>Buscar autor por nombre</b></div>
+        <div id="busqueda" ><b>Buscar editorial por nombre</b></div>
     </div>
     
     <div id="barra">
-        <form>
-            <input type="text" placeholder="Ejemplo: Shakespeare" name="Buscador">  
-            <button class="bottonSearch" type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
-        </form>
+        <form (ngSubmit)="filtrarEditoriales()">
+            <input type="text" placeholder="filtrar por nombre editorial" name="filtro" [(ngModel)]="filtro">
+            <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+          </form>
+          <div id="busqueda"><strong>+</strong> </div>
+          <button class type="submit"(click)="restablecerEditoriales()" class="bottonMore" >restablecer Autores</button>
     </div>
     </div>
 
@@ -31,9 +36,9 @@
                             </th>
                        
                             <td>
-                                 <button button class="bottonMore">
+                                 <button button class="bottonEdit" (click)="obtenerEditorialEditar(editorial)" >
                        
-                                    <i class="fas fa-minus-circle"></i>
+                                    Editar
                             
                                  </button>
     
@@ -47,7 +52,32 @@
              </table>
     
      </div>
+</div>
 
-<div style="padding-left: 30px;">
-    <button class= "bottonAdd" [routerLink]="['agregarEditorial']" routerLinkActive="active"> Agregar editorial </button> 
- </div>
+<!-- se carga el borrar datos -->
+
+<div *ngIf="editar==true">
+    <div style="padding-left: 30px;">
+        <button class="bottonMore" (click)="volverEditoriales()">volver</button> 
+     </div>         
+    <div class ="formulario">
+        <form  novalidate [formGroup]="editorialNombre" form (ngSubmit)="editarEditorial()">
+
+                <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+                    <label for="cantdidadEditada">Nombre al que desea cambiar de editorial</label>
+                    <input class="form-control" type="text" formControlName="entradaNombre" placeholder="Ingrese el nuevo nombre de la editorial" [(ngModel)]="nuevoNombre">
+                    <label for="cantdidadEditada">Nombre anterior editorial : {{editorialEditar.nombre}}</label>
+                </div>
+
+                <div style="padding-left: 5cm">
+                <br>
+                    <button type="submit" [disabled]="editorialNombre.invalid" class="btn btn-success">
+                        Editar nombres de la editorial
+                    </button>
+                </div>
+      
+        </form>
+
+      </div>
+
+</div>

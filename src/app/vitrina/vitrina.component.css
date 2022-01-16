@@ -6,14 +6,15 @@
 #barra{
     font-size: medium;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 #busqueda{
+    padding-top: 20px;
     font-size: large;
     font-family: Georgia, 'Times New Roman', Times, serif;
     color:darkgreen;
     padding-inline-end: 5cm;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 .card-img-top{
     width: 3cm;

@@ -1,30 +1,55 @@
-<nav id="navBar">
-    <ul ngbNav #nav="ngbNav" class="nav-tabs">
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['welcome']" routerLinkActive="active">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">Mirador Chillan</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['inicio']" routerLinkActive="active" aria-current="page" href="#">Inicio</a>
         </li>
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['vitrina']" routerLinkActive="active">Vitrina</a>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['vitrina']" routerLinkActive="active">Vitrina</a>
         </li>
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['login']" routerLinkActive="active">login</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" *ngIf="isLogin==true"  [routerLink]="['stock']" routerLinkActive="active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Stock
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" [routerLink]="['stock/agregarLibro']" routerLinkActive="active">Agregar Libro</a></li>
+          </ul>
         </li>
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['stock']" routerLinkActive="active">Stock</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" *ngIf="isLogin==true"  [routerLink]="['autores']" routerLinkActive="active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Autores
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" [routerLink]="['autores/agregarAutor']" routerLinkActive="active">Agregar Autor</a></li>
+          </ul>
         </li>
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['autores']" routerLinkActive="active">Autores</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" *ngIf="isLogin==true"  [routerLink]="['editoriales']" routerLinkActive="active" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Editoriales
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" [routerLink]="['editoriales/agregarEditorial']" routerLinkActive="active">Agregar Editoriales</a></li>
+          </ul>
         </li>
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['editoriales']" routerLinkActive="active">editoriales</a>
-        </li>
-        <li ngbNavItem>
-          <a ngbNavLink [routerLink]="['enviarConsulta']" routerLinkActive="active">Enviar Consulta</a>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLogin==true" [routerLink]="['historial']" tabindex="-1" aria-disabled="true">Historial</a>
         </li>
       </ul>
-    <div [ngbNavOutlet]="nav"></div>
-  </nav>
+      
+      <div class="d-flex">
+        <a class="nav-link" *ngIf="isLogin==false" [routerLink]="['login']" tabindex="-1" aria-disabled="true">iniciar sesión</a>
+      </div>
+      <div class="d-flex">
+        <a class="nav-link" *ngIf="isLogin==true" [routerLink]="['logout']" tabindex="-1" aria-disabled="true">cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</nav>
 
   <router-outlet></router-outlet>
-
   

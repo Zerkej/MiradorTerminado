@@ -22,6 +22,7 @@ export class AgregarAutorComponent implements OnInit {
   autor!: FormGroup;
   apellido: String ="";
   nombre: String = "";
+  autores:Iautor[];
 
 
   constructor(private _fb: FormBuilder , private commonService: commonService ) { }
@@ -36,16 +37,32 @@ export class AgregarAutorComponent implements OnInit {
   
   ngOnInit(): void {
     this.createForm();
+    this.commonService.getAutor().subscribe(data=>{
+      this.autores=data;
+    })
   }
 
   public agregarAutor(){
+    let existeAutor=false;
     this.autorAgregar.nombre=this.nombre;
     this.autorAgregar.apellido=this.apellido
-    if(this.autorAgregar!=undefined){
+    for(let i=0; i<this.autores.length;i++){
+      if(this.autorAgregar.nombre.toLowerCase()==this.autores[i].nombre.toLowerCase() && this.autorAgregar.apellido.toLowerCase()==this.autores[i].apellido.toLowerCase()){
+          existeAutor=true;
+          Swal.fire('Operación Fallida','El autor ya existe');
+      } 
+    }
+    if(existeAutor==false){
+      if(this.autorAgregar!=undefined){
       this.commonService.postAutor(this.autorAgregar).subscribe(data=>{
-        Swal.fire('se ha guardado el autor','el autor ha sido registrada con exito');
+        Swal.fire('Se ha guardado el autor','el autor ha sido registrada con exito');
       });
     }
+    }
+    this.autor.patchValue({
+      nombre: '',
+      apellidos: ''
+    })
   }
 
 }

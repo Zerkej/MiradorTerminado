@@ -2,17 +2,32 @@
 export interface Istock{
     autor:number[];
     id_libro: number;
+    nombre: string;
+    precio: number;
+    cantidad: number;
+    descripcion: string;
+    formato: string;
+    editorial: Ieditorial;
+    imagen: string;
+    cantidad_min: number;
+    disponibilidad: number;
+
+}
+
+
+export interface IstockPost{
+    autor:number[];
     nombre: String;
     precio: number;
     cantidad: number;
     descripcion: String;
     formato: String;
-    editorial: Ieditorial;
-    imagen: String;
+    editorial: number;
+    imagen: any;
     cantidad_min: number;
     disponibilidad: number;
-    autores:Iautor[];
 }
+
 //interfaces de vendedor
 export interface Ivendedor {
     id_vendedor: number;
@@ -63,6 +78,8 @@ export interface Ilibro {
     cantidad_min: number;
     disponibilidad: number;
 }
+
+
 export interface IlibroWithEditorial {
     id_libro: number;
     nombre: String;

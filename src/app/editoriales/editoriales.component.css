@@ -17,7 +17,8 @@
     font-size:small;
     font-family: Georgia, 'Times New Roman', Times, serif;
     overflow-x: auto;
-    
+    width: 120em;
+    padding-left: 10em;
 }
 
 .table{
@@ -48,7 +49,7 @@
 }
 #barraBusqueda{
     padding-top: 1cm;
-    float: right
+    padding-left: 2em;
 }
 .bottonAdd{
     font-weight: bold;
@@ -64,15 +65,6 @@
     background-color: green;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.bottonMore{
-    text-align: Center;
-    border-radius: 4px;
-    color:white;
-    text-align:center;
-    border-style: hidden;
-    background-color: darkgrey;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
 .bottonSearch{
     text-align: Center;
     border-radius: 4px;
@@ -83,19 +75,8 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-.bottonDel{
-    text-align: Center;
-    border-radius: 4px;
-    display:inline-flex;
-    padding: 5px 25px;
-    color:white;
-    text-align-last: center;
-    border-style: hidden;
-    background-color: red;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
 .bottonMore{
+    font-weight: bold;
     text-align: Center;
     border-radius: 4px;
     padding: 5px 25px;
@@ -117,3 +98,12 @@
     background-color: lightseagreen;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 500px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }

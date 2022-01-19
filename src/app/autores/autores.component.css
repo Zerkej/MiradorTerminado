@@ -48,7 +48,7 @@
 }
 #barraBusqueda{
     padding-top: 1cm;
-    float: right
+    padding-left: 2em;
 }
 .bottonAdd{
     font-weight: bold;
@@ -62,15 +62,6 @@
     text-align-last: center;
     border-style: hidden;
     background-color: green;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.bottonMore{
-    text-align: Center;
-    border-radius: 4px;
-    color:white;
-    text-align:center;
-    border-style: hidden;
-    background-color: darkgrey;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -107,3 +98,12 @@
     background-color: lightseagreen;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 500px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }

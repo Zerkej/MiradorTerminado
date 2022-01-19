@@ -23,7 +23,6 @@ export class VigilanteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.key = String(localStorage.getItem("key"))
-    console.log(this.key);
           if(this.key!='null'){
             this.isLogin=true;
         }   

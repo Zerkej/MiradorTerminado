@@ -1,10 +1,10 @@
-<div class="title"><span>Stock actual <span *ngIf="cambiarStock==true">/ cambiarStock</span><span *ngIf="bajoStock==true">/ bajo Stock</span></span></div>
+<div class="title"><span>Stock actual al {{LocalDate | date:"dd-MM-yyyy"}} <span *ngIf="cambiarStock==true">/ cambiarStock</span><span *ngIf="bajoStock==true">/ bajo Stock</span><span *ngIf="ventanaEditar==true">/ Editar Libro</span></span></div>
 
-<div *ngIf="cambiarStock==false && bajoStock==false">
+<div *ngIf="cambiarStock==false && bajoStock == false && ventanaEditar == false && verMasVentana==false">
         <div style="padding-left: 30px;">
         <button class= "bottonAdd" ngbNavLink routerLink="/stock/agregarLibro" routerLinkActive="active"> Agregar libro </button> 
-        <button class= "bottonMore" (click)="irABajoStock()"> ver Bajo Stock</button> 
-        <button class= "bottonEdit" (click) = "openPDF()">imprimit pdf</button>
+        <button class= "bottonMore" (click)="irABajoStock()"> Ver Bajo Stock</button> 
+        <button class= "bottonEdit" (click) = "openPDF()">Imprimir pdf</button>
         </div>
     <div id="barraBusqueda">
     <div>
@@ -12,13 +12,15 @@
     </div>
 
     <div id="barra">
-        <form>
-            <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
+        <form (ngSubmit)="filtrarStock()">
+            <input type="text" placeholder="Ejemplo: Demian" name="filtroStock" [(ngModel)]="filtroStock">  
             <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
         </form>
     </div>
+    <div id="busqueda"><strong>Apretar restablecer despues de la busqueda</strong> </div>
+    <button class= "bottonMore" (click)="restablecerStockActual()"> Restablecer Stock</button> 
     </div>
-    <div id="htmlData" class="divTable">   
+    <div id="htmlData" class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
         <table class="table">
 
             <thead class="tableTitles">
@@ -36,18 +38,24 @@
                             <th>
                                 <span>{{libro.nombre}}</span>
                            </th>
-                            <div *ngFor='let idAutor of libro.autor'>
-                              <div *ngFor='let autor of autor'>
-                                    <th *ngIf ="idAutor==autor.id_autor">{{autor.nombre}} {{autor.apellido}}</th> 
+                           <td text="text-align:center"> 
+                              <div *ngFor='let idAutor of libro.autor'>
+                                <div *ngFor='let autor of autor'>
+                                     <div *ngIf ="idAutor==autor.id_autor" ><span>{{autor.nombre}} {{autor.apellido}}</span></div> 
+                                </div>
                               </div>
-                            </div>
+                            </td>
                             <td><span>{{libro.editorial.nombre}}</span></td>
                             <td><span>{{libro.cantidad}}</span></td>
                             <td><span>{{libro.cantidad_min}}</span></td>
                             <td><span>$</span><span>{{libro.precio}}</span></td>
                     
                             <td>
-                                <button  id ="bottonMore" type="button">
+                                <button  class ="bottonEdit" type="button" (click)="cambiarVentanaEditar(libro)">
+                                   Editar
+                                </button>
+
+                                <button  id ="bottonMore" type="button" (click)="verMas(libro)">
                                     Ver más
                                 </button>
 
@@ -134,18 +142,6 @@
   <div style="padding-left: 30px;">
     <button class= "bottonAdd" (click)="volverStockDesdeMinimo()"> volver a Stock</button> 
     </div>
-    <div id="barraBusqueda">
-    <div>
-        <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
-    </div>
-
-    <div id="barra">
-        <form>
-            <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
-            <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
-        </form>
-    </div>
-    </div>
     <div class="divTable">   
         <table class="table">
 
@@ -156,7 +152,6 @@
                 <th scope="col">Stock</th>
                 <th scope="col">Stock Minimo</th>
                 <th scope="col">Valor</th>
-                <th scope="col">Opciones</th>
 
             </thead>
             <tbody>
@@ -166,16 +161,17 @@
                                 <span>{{libro.nombre}}</span>
                             </th>
                             <td>
-                                <span></span></td>
+                              <div *ngFor='let idAutor of libro.autor'>
+                                <div *ngFor='let autor of autor'>
+                                      <div *ngIf ="idAutor==autor.id_autor" style="padding-left: 2em;"><div>{{autor.nombre}} {{autor.apellido}}</div></div> 
+                                </div>
+                              </div>
+                            </td>
                             <td><span>{{libro.editorial.nombre}}</span></td>
                             <td><span>{{libro.cantidad}}</span></td>
                             <td><span>{{libro.cantidad_min}}</span></td>
                             <td><span>$</span><span>{{libro.precio}}</span></td>
                     
-                            <td>
-                                <button  id ="bottonMore" type="button">
-                                    Ver más
-                                </button>
                     </tr>
                 
                 </tbody>
@@ -184,3 +180,301 @@
 
     </div>
 </div>
+
+<!--Ventana Editar-->
+
+<div *ngIf="ventanaEditar==true">
+  <div style="padding-left: 30px;">
+    <button class="bottonMore" (click)="volverAStock()">volver</button> 
+ </div>      
+  <div class ="formulario">
+    <!--cambiar nombre-->
+    <form  novalidate [formGroup]="cambiarNombre" form (ngSubmit)="editarNombre()">
+
+            <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+                <label for="cantdidadEditada">Nombre al que desea cambiar</label>
+                <input class="form-control" type="text" formControlName="entradaLetras" placeholder="Ingrese el nuevo nombre" [(ngModel)]="nombre">
+                <b><label for="cantdidadEditada">Nombre anterior : {{libroEditar.nombre}}</label></b>
+            </div>
+
+            <div style="padding-left: 5cm">
+         
+                <button type="submit" [disabled]="cambiarNombre.invalid" class="btn btn-success">
+                    Editar nombre del libro
+                </button>
+            </div>
+  
+    </form>
+    <br>
+    <!--cambiar Precio-->
+    <form  novalidate [formGroup]="cambiarPrecio" form (ngSubmit)="editarPrecio()">
+
+      <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+          <label for="cantdidadEditada">precio al que desea cambiar</label>
+          <input class="form-control" type="text" formControlName="entradaNumerica" placeholder="Ingrese el nuevo precio" [(ngModel)]="precio">
+          <b><label for="cantdidadEditada">Precio anterior : {{libroEditar.precio}}</label></b>
+      </div>
+
+      <div style="padding-left: 5cm">
+    
+          <button type="submit" [disabled]="cambiarPrecio.invalid" class="btn btn-success">
+              Editar precio del libro
+          </button>
+      </div>
+    </form>
+    <br>
+     <!--cambiar cantidad Minima-->
+      <form  novalidate [formGroup]="cambiarCantidadMinima" form (ngSubmit)="editarCantidad_Min()">
+
+        <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+            <label for="cantdidadEditada">stock minimo al que desea cambiar</label>
+            <input class="form-control" type="text" formControlName="entradaNumerica" placeholder="ingrese el nuevo stock minimo" [(ngModel)]="cantidad_min">
+            <b><label for="cantdidadEditada">stock minimo anterior : {{libroEditar.cantidad_min}}</label></b>
+        </div>
+
+        <div style="padding-left: 5cm">
+            <button type="submit" [disabled]="cambiarCantidadMinima.invalid" class="btn btn-success">
+                Editar cantidad minima del libro
+            </button>
+        </div>
+      </form>
+      <br>
+      <!--cambiar Descripción-->
+        <form  novalidate [formGroup]="cambiarDescripcion" form (ngSubmit)="editarDescripcion()">
+
+          <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+              <label for="cantdidadEditada">descripción a la que desea cambiar</label>
+              <textarea class="form-control" type="text" formControlName="entradaLetras" [(ngModel)]="descripcion"></textarea>
+              <b><label for="cantdidadEditada">Descripción anterior : {{libroEditar.descripcion}}</label></b>
+          </div>
+
+          <div style="padding-left: 5cm">
+          
+              <button type="submit" [disabled]="cambiarDescripcion.invalid" class="btn btn-success">
+                  Editar descripción del libro
+              </button>
+          </div>
+        </form>
+        <br>
+       <!--cambiar Formato-->   
+          <form  novalidate [formGroup]="cambiarFormato" form (ngSubmit)="editarFormato()">
+
+            <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
+                <label for="cantdidadEditada">formato al que desea cambiar</label>
+                <input class="form-control" type="text" formControlName="entradaLetras" placeholder="Ingrese el nuevo formato" [(ngModel)]="formato">
+                <b><label for="cantdidadEditada">formato anterior : {{libroEditar.formato}}</label></b>
+            </div>
+
+            <div style="padding-left: 5cm">
+                <button type="submit" [disabled]="cambiarFormato.invalid" class="btn btn-success">
+                    Editar formato del libro
+                </button>
+            </div>
+          </form>
+
+        <!--agregarImagen-->
+        <div class="title" style="text-align: center;">Editar imagen</div>
+              <div style="text-align: center;">
+                <input type = "file" accept=".png, .jpg, .jpeg" (change)="cargarImagen($event)" enctype="multipart/form-data">
+                <br>
+                <button type="submit" [disabled]="!imagenCargada" class="btn btn-success" (click)="editarImagen()">
+                  Editar imagen
+                </button>
+              </div>
+        <br>
+        <div *ngIf ="imagenPrevisualizacion" style="text-align: center;">
+            <label>Pre-visualizacion de la imagen:   </label>
+            <br>
+            <img [src]="imagenPrevisualizacion" style="width: 150px;">
+        </div>
+          <br>
+<!--editar autor-->
+<div class="title" style="text-align: center;">editar autores</div>
+<div id="barraBusqueda">
+  <div id="barra">
+    <div>
+      <div id="busqueda" ><b>Buscar autor por nombre</b></div>
+    </div>
+      <form (ngSubmit)="filtrarAutores()">
+          <input type="text" placeholder="filtrar por nombre" name="filtro" [(ngModel)]="filtro">
+          <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        </form>
+        <div id="busqueda"><strong>+</strong> </div>
+        <button  type="submit"(click)="restablecerAutores()" class="bottonMore" >restablecer Autores</button>
+        <button  type="submit"(click)="limpiarAutores()" class="bottonEdit" >Limpiar autores agregar</button>
+  </div>
+  </div>
+
+  <div class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
+      <table class="table">
+  
+           <thead class="tableTitles">
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Acción</th>
+  
+           </thead>
+           <tbody>
+              <tr *ngFor='let autor of autor'>
+  
+                  <th>
+                      <span>{{autor.nombre}}</span>
+                  </th>
+                  
+                  <td>
+                      <span>{{autor.apellido}}</span>
+                 </td>
+
+                  <td>
+                       <button button class="bottonEdit" (click)="agregarAutor(autor)">
+             
+                          Agregar Autor para Editar
+                  
+                       </button>
+
+
+                  </td>
+
+             </tr>
+
+           </tbody>
+  
+           </table>
+    
+   </div>
+   <br>
+
+   <div style=" text-align: center;">
+        <h6  style ="text-align: center;">Autores actuales a agregar (parametro requerido) = <span *ngFor="let autor of autoresActuales">{{autor.nombre}} {{autor.apellido}} - </span></h6>
+        <button type="submit" [disabled]="!existeAutor" class="btn btn-success" (click)="editarAutores()">
+          Editar Autor
+        </button>
+   </div>
+   
+<br>
+<!--editar Editorial-->
+<div class="title" style="text-align: center;">Editar Editorial</div>
+<div id="barraBusqueda">
+
+  <div id="barra">
+    <div>
+      <div id="busqueda" ><b>Buscar Editorial por nombre</b></div>
+  </div>
+    <form (ngSubmit)="filtrarEditoriales()">
+        <input type="text" placeholder="filtrar por nombre editorial" name="filtro" [(ngModel)]="filtroEditorial">
+        <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+      </form>
+      <div id="busqueda"><strong>+</strong> </div>
+      <button class type="submit"(click)="restablecerEditoriales()" class="bottonMore" >restablecer Autores</button>
+  </div>
+
+
+  <div class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
+    <table class="table">
+
+        <thead class="tableTitles">
+              <th scope="col">Nombre</th>
+              <th scope="col">Opciones</th>
+
+        </thead>
+        <tbody>
+
+                  <tr *ngFor='let editorial of editoriales' >
+
+                        <th>
+                            <span>{{editorial.nombre}}</span>
+                        </th>
+                  
+                        <td>
+                            <button button class="bottonEdit" (click)="agregarEditorial(editorial)" >
+                  
+                                Agregar Editorial para cambiar
+                            </button>
+
+
+                        </td>
+
+                  </tr>
+            
+        </tbody>
+
+        </table>
+
+  </div>
+  <br>
+  <div style =" text-align: center;">
+    <h6 style ="text-align: center;">Editorial actual a agregar = <span *ngIf="existeEditorial==true" >{{editorialActual.nombre}}</span></h6>
+    <button type="submit" [disabled]="!existeEditorial" class="btn btn-success" (click)="editarEditorial()">
+      Editar editorial
+    </button>
+  </div>
+  
+<br>
+<div style="padding-left: 30px;">
+  <button class="bottonMore" (click)="volverAStock()">volver</button> 
+</div>
+<br> 
+</div> 
+   </div>
+</div>
+<!--Ver más libro-->
+<div *ngIf="verMasVentana==true">
+        
+  <div class="title" style="text-align:center; ">{{libro.nombre}} </div>
+  <div style="text-align: center;">
+  <br>
+      <div>
+          <label>
+              <img class="card-img-top" [src]="libro.imagen" style="width: 150px;margin-left: auto;">
+          </label>
+      </div>
+      <br>
+      <div>
+          <label>
+              <h5>Nombre</h5>
+              <span>{{libro.nombre}}</span>
+          </label>
+      </div>
+      <div>
+          <label>
+              <h5>Stock Actual</h5>
+              <span>{{libro.cantidad}}</span>
+          </label>
+      </div>
+      <div>
+          <label>
+              <h5>Autor</h5>
+              <div *ngFor='let idAutor of libro.autor'>
+                  <div *ngFor='let autor of autor'>
+                        <td *ngIf ="idAutor==autor.id_autor"><div>- {{autor.nombre}} {{autor.apellido}}</div></td> 
+                  </div>
+                </div>
+          </label>
+      </div>
+      <div>
+          <label>
+              <h5>Editorial</h5>
+              <span>{{libro.editorial.nombre}}</span>
+          </label>
+      </div>
+      <div>
+          <label>
+              <h5>Formato</h5>
+              <span>{{libro.formato}}</span>
+          </label>
+      </div>
+      <div>
+          <label>
+              <h5>Descripción</h5>
+              <span>{{libro.descripcion}}</span>
+          </label>
+      </div>
+  <br>
+  </div>
+      <div style="text-align: center;">
+          <button  class ="bottonMore" (click)="volverAStockDesdeVerMas()" >
+              Volver
+          </button>
+      </div>
+  <br>
+</div> 

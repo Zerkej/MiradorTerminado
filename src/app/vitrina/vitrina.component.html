@@ -1,10 +1,13 @@
+<div *ngIf="verMasVentana==false">
 <div>
     <div id="busqueda" ><b>Buscar libro por Nombre o Autor</b></div>
 </div>
 <div id="barra">
-    <form>
-        <input type="text" placeholder="Ejemplo: Demian" name="Buscador">  
+    <form (ngSubmit)="filtrarStock()">
+        <input type="text" placeholder="Ejemplo: Demian" name="filtroStock" [(ngModel)]="filtroStock">  
         <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        <div id="busqueda"><strong>Presionar despues de buscar</strong> </div>
+        <button class= "bottonMore" (click)="restablecerStockActual()"> Restablecer Stock</button> 
     </form>
 </div>
      <section class="py-5">
@@ -25,11 +28,12 @@
                                 <h6 class="fw-bolder">{{libro.editorial.nombre}}</h6>
                                 <!-- Product price-->
                                 ${{libro.precio}}
+                                <h6 class="fw-bolder">Stock: {{libro.cantidad}}</h6>
                             </div>
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Ver más</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" (click)="verMas(libro)">Ver más</a></div>
                         </div>
                     </div>
                 </div>
@@ -38,5 +42,64 @@
       </section>
  
     <br id="salto">
-    
-    
+</div>   
+<div *ngIf="verMasVentana==true">
+        
+    <div class="title" style="text-align:center; ">{{libro.nombre}} </div>
+    <div style="text-align: center;">
+    <br>
+        <div>
+            <label>
+                <img class="card-img-top" [src]="libro.imagen" style="width: 150px;margin-left: auto;">
+            </label>
+        </div>
+        <br>
+        <div>
+            <label>
+                <h5>Nombre</h5>
+                <span>{{libro.nombre}}</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <h5>Stock Actual</h5>
+                <span>{{libro.cantidad}}</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <h5>Autor</h5>
+                <div *ngFor='let idAutor of libro.autor'>
+                    <div *ngFor='let autor of autor'>
+                          <td *ngIf ="idAutor==autor.id_autor"><div>- {{autor.nombre}} {{autor.apellido}}</div></td> 
+                    </div>
+                  </div>
+            </label>
+        </div>
+        <div>
+            <label>
+                <h5>Editorial</h5>
+                <span>{{libro.editorial.nombre}}</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <h5>Formato</h5>
+                <span>{{libro.formato}}</span>
+            </label>
+        </div>
+        <div>
+            <label>
+                <h5>Descripción</h5>
+                <span>{{libro.descripcion}}</span>
+            </label>
+        </div>
+    <br>
+    </div>
+        <div style="text-align: center;">
+            <button  class ="bottonMore" (click)="volverAVitrina()" >
+                Volver
+            </button>
+        </div>
+    <br>
+</div>    

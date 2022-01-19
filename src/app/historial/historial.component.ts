@@ -15,10 +15,14 @@ export class HistorialComponent implements OnInit {
   verMasVentana:Boolean=false;
   //Se guardan todas las salidas
   salidas!:ISalidaGet[] ;
-
+  //Se guardan todas las salidas en una copia
+  salidasCopia!:ISalidaGet[] ;
+  //se guardaran las salidas filtradas
+  salidasFiltradas!:ISalidaGet[];
   //se gurada una salida que se desea verMas
   salidaVerMas!:ISalidaGet;
-  filtro!:Date;
+  //se guarda el filtro
+  filtro:string;
 
   constructor(private commonService: commonService) { }
 
@@ -27,7 +31,7 @@ export class HistorialComponent implements OnInit {
     this.commonService.getSalidasCompleta().subscribe((data:ISalidaGet[]) =>   
       {
         this.salidas=data.reverse();
-        console.log(this.salidas);
+        this.salidasCopia=data.reverse();
       }); 
       
   }
@@ -40,6 +44,28 @@ export class HistorialComponent implements OnInit {
   }
 
   volverASalidas(){
-      this.verMasVentana=false
+    this.verMasVentana=false
+  }
+
+  filtrar(){
+    let filtroMinusculas:string
+    let salidaTipoMinuscula:string
+    this.salidas=this.salidasCopia
+    if(this.filtro!=""){
+      for (let i=0; i<this.salidas.length; i++){
+            filtroMinusculas=this.filtro.toLowerCase();
+            salidaTipoMinuscula=this.salidas[i].tipo.toLowerCase();
+                if(salidaTipoMinuscula.includes(filtroMinusculas)){
+                      console.log(this.salidas[i])
+                      this.salidasFiltradas.push(this.salidas[i])
+                }   
+            }
+                this.salidas=this.salidasFiltradas; 
+                this.salidasFiltradas=[]
+  }
+  
+  }
+  restablecerSalidas(){
+    this.salidas=this.salidasCopia
   }
 }

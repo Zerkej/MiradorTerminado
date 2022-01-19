@@ -37,7 +37,11 @@ export class AutoresComponent implements OnInit {
   //es para ir al html de editar
   editar:boolean=false;
   //se guarda un autor en especifico
-  autor!:Iautor
+  autor:Iautor={
+    nombre:"",
+    apellido:"",
+    id_autor:-1
+  }
   //Se guarda el nombre de un autor para borrarlo
   nombreAutor?:String ="";
   //Se guarda el apellido de un autor para borrarlo
@@ -48,14 +52,14 @@ export class AutoresComponent implements OnInit {
   filtro:string= '';
   //se guardan los autores filtrado
   autoresFiltrados:Iautor[]=[];
-  //Se guarda una copia de los autores para restablecer
-  copiaAutores:Iautor[]=[];
   //Se guarda el nombre + el apellido del autor en minuscula 
   autorNombreMinuscula:string="";
   //se guarda el filtro en minusculas
   filtroMinusculas:string='';
-  //token
-  token:string|null=localStorage.getItem("key")
+  //copia autores
+  copiaAutores:Iautor[]
+  //sirve como variable para guardar el dia actual
+  LocalDate: Date = new Date();
 
   ngOnInit(): void {
     this.createForm()
@@ -64,42 +68,78 @@ export class AutoresComponent implements OnInit {
     this.commonService.getAutor().subscribe((data:Iautor[]) =>   
       {
         this.autores=data.reverse();
+        this.copiaAutores=data.reverse();
       }); 
-
-      this.copiaAutores=this.autores;
-
   }
     
   //Se obtiene el autor que se desea borrar
   obtenerAutorEditar(autor: Iautor){
       this.editar=true;
-      this.autor=autor
+      this.autor.nombre=autor.nombre
+      this.autor.id_autor=autor.id_autor
+      this.autor.apellido=autor.apellido
   }
   //sirve para volver al codigo html de autores
   volverAutores(){
+    this.autoresNombre.patchValue({
+      entradaNombres:''
+    })
+    this.autoresApellidos.patchValue({
+      entradaApellidos:''
+    })   
       this.ngOnInit()
       this.editar=false;
   }
   //Sirve para borrar un autor
   editarNombreAutor(){
-        console.log("aca toy")
+        let existe =false
         this.autor.nombre=this.nombresCambiar
-        console.log(this.autor)
-        this.commonService.putAutor(this.autor).subscribe(data=>{
-          Swal.fire('se ha editado los nombres del autor de forma correcta','la operación fue un exito');
-        });
+        for(let i=0; i<this.autores.length;i++){
+          if(this.autores[i].nombre.toLowerCase()==this.autor.nombre.toLowerCase()
+          && this.autores[i].apellido.toLowerCase()==this.autor.apellido.toLowerCase()){
+            console.log("aca estoy")
+            existe=true;
+            Swal.fire('No se ha podido editar','El nombre formado coincide con otro Autor');
+          }
+        }
+        if(existe==false){
+           this.commonService.putAutor(this.autor).subscribe(data=>{
+           Swal.fire('Se ha editadon los nombres del autor de forma correcta','la operación fue un exito');
+           existe=false
+           });
+        }
+        this.autoresNombre.patchValue({
+          entradaNombres:''
+        })
+        this.autoresApellidos.patchValue({
+          entradaApellidos:''
+        })   
+
   }
 
   editarApellidoAutor(){
+       let existe =false
         this.autor.apellido=this.apellidosCambiar
-        console.log(this.autor)
-        this.commonService.putAutor(this.autor).subscribe(data=>{
-          Swal.fire('se ha editado elos apellidos del autor de forma correcta','la operación fue un exito');
-        });
+        for(let i=0; i<this.autores.length;i++){
+          if(this.autores[i].nombre.toLowerCase()==this.autor.nombre.toLowerCase()
+          && this.autores[i].apellido.toLowerCase()==this.autor.apellido.toLowerCase()){
+            existe=true;
+            Swal.fire('No se ha podido editar','el nombre formado coincide con otro Autor');
+          }
+        }
+        if(existe==false){
+           this.commonService.putAutor(this.autor).subscribe(data=>{
+           Swal.fire('se han editado los apellidos del autor de forma correcta','la operación fue un exito');
+           existe=false
+           });
+        }
+        
   }
   //sirve para foltrar los autores
   filtrarAutores(){
-          for (let i=0; i<this.autores?.length; i++){
+          this.autores=this.copiaAutores
+          if(this.filtro!=""){
+            for (let i=0; i<this.autores?.length; i++){
             this.filtroMinusculas=this.filtro.toLowerCase();
             this.autorNombreMinuscula=this.autores[i].nombre.toLowerCase()+this.autores[i].apellido.toLowerCase();
 
@@ -110,13 +150,11 @@ export class AutoresComponent implements OnInit {
                 console.log(this.autoresFiltrados);
                 this.autores=this.autoresFiltrados; 
                 this.autoresFiltrados=[]
+          }  
   }
   //sirve para restablecer todos los autores
   restablecerAutores(){
-    this.commonService.getAutor().subscribe((data:Iautor[]) =>   
-    {
-      this.autores=data;
-    }); 
+    this.autores=this.copiaAutores
   }
 
   }

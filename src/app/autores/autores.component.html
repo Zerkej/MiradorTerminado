@@ -1,4 +1,4 @@
-<div class="title"><span>Autores actuales <span *ngIf="editar==true">/ Editar autor</span></span></div>
+<div class="title"><span>Autores actuales al {{LocalDate | date:"dd-MM-yyyy"}}<span *ngIf="editar==true">/ Editar autor</span></span></div>
 
 <div *ngIf="editar==false">
     <div style="padding-left: 30px;">
@@ -14,12 +14,12 @@
             <input type="text" placeholder="filtrar por nombre" name="filtro" [(ngModel)]="filtro">
             <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
           </form>
-          <div id="busqueda"><strong>+</strong> </div>
-          <button class type="submit"(click)="restablecerAutores()" class="bottonMore" >restablecer Autores</button>
+          <div id="busqueda"><strong>Apretar restablecer despues de la busqueda</strong> </div>
+          <button class type="submit"(click)="restablecerAutores()" class="bottonMore" >Restablecer Autores</button>
     </div>
     </div>
 
-    <div class="divTable">   
+    <div class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
         <table class="table">
     
              <thead class="tableTitles">
@@ -29,7 +29,7 @@
     
              </thead>
              <tbody>
-                <tr *ngFor='let autor of autores' >
+                <tr *ngFor='let autor of autores'>
     
                     <th>
                         <span>{{autor.nombre}}</span>
@@ -71,16 +71,16 @@
                 <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
                     <label for="cantdidadEditada">Nombres al que desea cambiar</label>
                     <input class="form-control" type="text" formControlName="entradaNombres" placeholder="Ingrese los apellidos para cambiar" [(ngModel)]="nombresCambiar">
-                    <label for="cantdidadEditada">Nombres anterior del autor : {{autor.nombre}}</label>
+                    <b><label for="cantdidadEditada">Nombres anterior del autor : {{autor.nombre}}</label></b>
                 </div>
 
                 <div style="padding-left: 5cm">
-                <br>
+               
                     <button type="submit" [disabled]="autoresNombre.invalid" class="btn btn-success">
                         Editar nombres del autor
                     </button>
                 </div>
-      
+                <br>
         </form>
 
         <form  novalidate [formGroup]="autoresApellidos" form (ngSubmit)=" editarApellidoAutor()">
@@ -88,16 +88,16 @@
                 <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
                     <label for="cantdidadEditada">Apellidos al que desea cambiar</label>
                     <input class="form-control"  type="text" formControlName="entradaApellidos" placeholder="Ingrese los apellidos para cambiar" [(ngModel)]="apellidosCambiar">
-                    <label for="cantdidadEditada">Apellidos anterior del autor : {{autor.apellido}}</label>
+                    <b><label for="cantdidadEditada">Apellidos anterior del autor : {{autor.apellido}}</label></b>
                 </div>
 
                 <div style="padding-left: 5cm">
-                <br>
+              
                     <button type="submit" [disabled]="autoresApellidos.invalid" class="btn btn-success">
                         Editar apellidos del autor
                     </button>
                 </div>
-  
+                <br>
        </form>
 
       </div>

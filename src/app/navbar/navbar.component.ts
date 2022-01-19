@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
   constructor( private informacionService:InformacionServiceService) { }
   ngOnInit(): void {
     this.key = String(localStorage.getItem("key"))
-    console.log(this.key);
           if(this.key!='null'){
             this.isLogin=true;
 

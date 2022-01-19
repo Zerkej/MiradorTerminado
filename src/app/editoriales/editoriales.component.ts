@@ -36,7 +36,14 @@ export class EditorialesComponent implements OnInit {
   //se guarda la variable nuevo nombre
   nuevoNombre:String="";
   //se guarda la editorial para editar
-  editorialEditar!:Ieditorial;
+  editorialEditar:Ieditorial={
+    id_editorial: -1,
+    nombre:""
+  };
+  //obtener copia de editoriales
+  editorialesCopia!:Ieditorial[];
+   //sirve como variable para guardar el dia actual
+   LocalDate: Date = new Date();
 
   createForm(): void {
     this.editorialNombre = this._fb.group({
@@ -50,6 +57,7 @@ export class EditorialesComponent implements OnInit {
       this.commonService.getEditoriales().subscribe((data:Ieditorial[]) =>   
       {
         this.editoriales=data.reverse();
+        this.editorialesCopia=data.reverse();
       }); 
 
   }
@@ -57,41 +65,58 @@ export class EditorialesComponent implements OnInit {
   //se usar para traer la editorial que se desea borrar
   obtenerEditorialEditar(editorial: Ieditorial){
     this.editar=true;
-    this.editorialEditar=editorial
+    this.editorialEditar.id_editorial=editorial.id_editorial
+    this.editorialEditar.nombre=editorial.nombre
   }
   //para volver al html de editoriales
   volverEditoriales(){
+      this.editorialNombre.patchValue({
+        entradaNombre:''
+      })
       this.ngOnInit()
       this.editar=false;
   }
   //con esta se borra una editorial y se da la alerta correspondiente
   editarEditorial(){
+    let existe = false;
     this.editorialEditar.nombre=this.nuevoNombre
-    this.commonService.putEditorial(this.editorialEditar).subscribe(data=>{
-      Swal.fire('se ha editado el nombre de la editorial de forma correcta','la operación fue un exito');
+    for(let i=0; i<this.editoriales.length;i++){
+        if(this.editorialEditar.nombre.toLowerCase()==this.editoriales[i].nombre.toLowerCase()){
+          Swal.fire('La operación no se puede realizar','El nombre de la editorial coincide con otra');
+          existe=true;
+        }
+    }
+    if(existe==false){
+      this.commonService.putEditorial(this.editorialEditar).subscribe(data=>{
+      Swal.fire('Se ha editado el nombre de la editorial de forma correcta','La operación fue un exito');
+    })
+    }
+
+    this.editorialNombre.patchValue({
+      entradaNombre:''
     })
 
   }
   //sirve para filtrar las editoriales
   filtrarEditoriales(){
-    for (let i=0; i<this.editoriales?.length; i++){
-      this.filtroMinusculas=this.filtro.toLowerCase();
-      this.autorNombreMinuscula=this.editoriales[i].nombre.toLowerCase();
-
-              if(this.autorNombreMinuscula.includes(this.filtroMinusculas)){
-                  this.autoresFiltrados.push(this.editoriales[i])
-              }   
-          }
-          console.log(this.autoresFiltrados);
-          this.editoriales=this.autoresFiltrados; 
-          this.autoresFiltrados=[]
+    this.editoriales=this.editorialesCopia
+    if(this.filtro!=""){
+        for (let i=0; i<this.editoriales?.length; i++){
+              this.filtroMinusculas=this.filtro.toLowerCase();
+              this.autorNombreMinuscula=this.editoriales[i].nombre.toLowerCase();
+                  if(this.autorNombreMinuscula.includes(this.filtroMinusculas)){
+                        this.autoresFiltrados.push(this.editoriales[i])
+                  }   
+              }
+                  console.log(this.autoresFiltrados);
+                  this.editoriales=this.autoresFiltrados; 
+                  this.autoresFiltrados=[]
+    }
+    
 }
   //sirve para volver a mostrar todas las editoriales
   restablecerEditoriales(){
-      this.commonService.getEditoriales().subscribe((data:Ieditorial[]) =>   
-      {
-      this.editoriales=data;
-      }); 
+      this.editoriales=this.editorialesCopia
   }
   
 }

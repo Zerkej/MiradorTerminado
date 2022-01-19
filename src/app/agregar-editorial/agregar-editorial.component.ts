@@ -5,7 +5,7 @@ import {
   Validators
 } from "@angular/forms";
 import Swal from 'sweetalert2';
-import {IeditorialAgregar } from '../interfaces/interfaces';
+import {Ieditorial, IeditorialAgregar } from '../interfaces/interfaces';
 import { commonService } from '../service/common.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class AgregarEditorialComponent implements OnInit {
     
   editorial!: FormGroup;
   nombre: String = "";
+  editoriales!:Ieditorial[]
 
   constructor(private _fb: FormBuilder,private commonService: commonService) { }
 
@@ -31,15 +32,30 @@ export class AgregarEditorialComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
+    this.commonService.getEditoriales().subscribe(data=>{
+        this.editoriales=data
+    })
   }
   
   public agregarEditorial(){
-    Swal.fire('se ha guardado la editorial','la editorial a sido registrada con exito');
+    let existe=false;
     this.editorialAgregar.nombre=this.nombre;
-    if(this.editorialAgregar!=undefined){
-      console.log(this.editorialAgregar);
-      this.commonService.postEditoriales(this.editorialAgregar).subscribe();
+    for(let i=0; i<this.editoriales.length; i++){
+      if(this.editoriales[i].nombre.toUpperCase()==this.nombre.toUpperCase()){
+        Swal.fire('La operación no se ha realizado','La editorial ya existe');
+        existe=true;
+      }
     }
-  }
+    if(existe==false){
+      if(this.editorialAgregar!=undefined){
+          this.commonService.postEditoriales(this.editorialAgregar).subscribe(data=>{
+            Swal.fire('Se ha guardado la editorial','La editorial a sido registrada con exito');
+          });
+          this.editorial.patchValue({
+            nombreEditorial:''
+          })
+      }
+    }
+ }
 }
-

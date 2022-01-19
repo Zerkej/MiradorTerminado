@@ -1,14 +1,24 @@
 <div class="title">Historial de Stock<span *ngIf="verMasVentana==true">/ especificación de una transferencia</span></div>
 <div *ngIf="verMasVentana==false">
     
-    <div style ="padding-left: 30px;">
-        <div id="busqueda" ><b>filtrar por fecha</b></div>
-    <form>
-        <input type="date" name="filtro" [(ngModel)]="filtro">
-        <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
-    </form>
-    </div>
-
+    <div id="barraBusqueda">
+        <div>
+            <div id="busqueda" ><b>Buscar editorial por nombre</b></div>
+        </div>
+        
+        <div id="barra">
+            <form (ngSubmit)="filtrar()">
+                <select type="text" name="filtro" placeholder="ingresar tipo" [(ngModel)]="filtro">
+                <option>Venta</option>
+                <option>Retiro de Stock</option>
+                <option>ingreso de Stock</option></select>
+                <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+              </form>
+              <div id="busqueda"><strong>Apretar restablecer despues de la busqueda</strong> </div>
+              <button class type="submit"(click)="restablecerSalidas()" class="bottonMore" >Restablecer Autores</button>
+        </div>
+        </div>
+        <br>
     <div class="divTable">   
         <table class="table">
     
@@ -69,6 +79,12 @@
 
         <div class="title" style="text-align:center; ">Especificación de la salida </div>
             <div style="text-align: center;">
+                <br>
+                <div>
+                    <img class="card-img-top" [src]="salidaVerMas.libro.imagen" style="width: 150px;margin-left: auto;
+                        margin-right: auto;" alt="...">
+                </div>
+                <br>
                 <div>
                     <label>
                         <h5>Tipo</h5>
@@ -106,5 +122,5 @@
                         volver
                     </button>
                 </div>
-            </div>
+    </div>
 

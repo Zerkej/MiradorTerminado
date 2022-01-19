@@ -1,16 +1,18 @@
+<div class="title" style="text-align: center;">Añadir Libro</div>
 <br>
 <!--boton para volver-->
 <div style="padding-left: 30px;">
-  <button class= "bottonVolver" ngbNavLink routerLink="/stock" routerLinkActive="active"> volver </button> 
+  <button class= "bottonVolver" ngbNavLink routerLink="/stock" routerLinkActive="active"> Volver </button> 
 </div>
 <br>
 
 <!--formulario-->
-<div style="text-align: center;">
-    <form novalidate [formGroup]="libro" form (ngSubmit)="agregarLibro()">
+<div style="padding-left:5em; padding-right:5em;">
+    <form novalidate [formGroup]="libro" form>
       <div class="form-group">
-        <label>
-          <span>nombre del libro</span>
+    
+      <!--Nombre-->
+          <span>Nombre del libro</span>
           <input
             class="form-control"
             type="text"
@@ -18,125 +20,290 @@
             formControlName="nombre"
             [(ngModel)]="nombre"
           />
-        </label>
+     
         <div
           class="error"
           style="color: red;"
         >
-          nombre requerida
+          Nombre requerida
         </div>
       </div>
-  
+    <!--precio-->
       <div class="form-group">
-        <label>
-          <span>precio</span>
+     
+          <span>Precio</span>
           <input 
             class="form-control"
             type="text"
             formControlName="valor"
             placeholder="ingrese un precio"
             [(ngModel)]="precio"/>
-        </label>
+    
         <div
           class="error"
           style="color: red;"
         >
-          precio requerido
+          Precio requerido (solo números)
 
         </div>
       </div>
-
+      <!--cantidad-->
       <div class="form-group">
-        <label>
-          <span>cantidad</span>
+  
+          <span>Cantidad</span>
           <input 
             class="form-control"
             type="text"
             formControlName="stock"
             placeholder="Ingrese cantidad"
             [(ngModel)]="cantidad" />
-        </label>
+      
         <div
           class="error"
           style="color: red;"
         >
-          cantidad requerido
+          Cantidad requerido (solo números)
 
         </div>
       </div>
-
+    <!--descripción-->
       <div class="form-group">
-        <label>
-          <span>descripción</span>
-          <input 
+   
+          <span>Descripción</span>
+          <textarea
             class="form-control"
             type="text"
             formControlName="entradadescripcion"
             placeholder="Ingrese una descripción"
-            [(ngModel)]="descripcion" />
-        </label>
+            [(ngModel)]="descripcion"></textarea>
+      
         <div
           class="error"
           style="color: red;"
         >
-          descripción
+          Descripción requerida
 
         </div>
       </div>
-
+    <!--formato-->
       <div class="form-group">
-        <label>
-          <span>formato</span>
-          <input 
+  
+          <span>Formato</span>
+          <input
             class="form-control"
             type="text"
+            placeholder="Ingrese un formato del libro"
             formControlName="formatoLibro"
-            placeholder="Ingrese un formato"
-            [(ngModel)]="formato" />
-        </label>
+            [(ngModel)]="formato"/>
+    
         <div
           class="error"
           style="color: red;"
         >
-          formato requerido
+          Formato requerido
 
         </div>
       </div>
-
+ <!--Stock minimo-->
       <div class="form-group">
-        <label>
-          <span>stock minimo</span>
+  
+          <span>Stock minimo</span>
           <input 
             class="form-control"
             type="text"
             formControlName="stock_min"
             placeholder="ingrese el stock minimo"
             [(ngModel)]="cantidad_min" />
-        </label>
+
+    
         <div
           class="error"
           style="color: red;"
         >
-          formato requerido
+          Stock minimo requerido (solo números)
 
         </div>
       </div>
+  </form>
+<br>
 
-      <div>
-          <br>
-        <button type="submit" [disabled]="libro.invalid" class="btn btn-success">
-          agregar Libro
-        </button>
+<!--agregar autor-->
+      <div class="title" style="text-align: center;">Añade autores</div>
+      <div id="barraBusqueda">
+        <div id="barra">
+          <div>
+            <div id="busqueda" ><b>Buscar autor por nombre</b></div>
+          </div>
+            <form (ngSubmit)="filtrarAutores()">
+                <input type="text" placeholder="filtrar por nombre" name="filtro" [(ngModel)]="filtro">
+                <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+              </form>
+              <button  type="submit"(click)="restablecerAutores()" class="bottonMore" >Restablecer Autores</button>
+              <button  type="submit"(click)="limpiarAutores()" class="bottonEdit" >Limpiar autores agregar</button>
+        </div>
+        </div>
+    
+        <div class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
+            <table class="table">
+        
+                 <thead class="tableTitles">
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Apellidos</th>
+                      <th scope="col">Acción</th>
+        
+                 </thead>
+                 <tbody>
+                    <tr *ngFor='let autor of autores'>
+        
+                        <th>
+                            <span>{{autor.nombre}}</span>
+                        </th>
+                        
+                        <td>
+                            <span>{{autor.apellido}}</span>
+                       </td>
+    
+                        <td>
+                             <button button class="bottonEdit" (click)="agregarAutor(autor)">
+                   
+                                Agregar como autor
+                        
+                             </button>
+    
+    
+                        </td>
+    
+                   </tr>
+
+                 </tbody>
+        
+                 </table>
+          
+         </div>
+         <br>
+         <h6  style ="text-align: center;">Autores actuales a agregar (parametro requerido) = <span *ngFor="let autor of autoresActuales">{{autor.nombre}} {{autor.apellido}} - </span></h6>
+<br>
+<!--añador Editorial-->
+  <div class="title" style="text-align: center;">Añade Editorial</div>
+   <div id="barraBusqueda">
+
+        <div id="barra">
+          <div>
+            <div id="busqueda" ><b>Buscar Editorial por nombre</b></div>
+        </div>
+          <form (ngSubmit)="filtrarEditoriales()">
+              <input type="text" placeholder="filtrar por nombre editorial" name="filtro" [(ngModel)]="filtroEditorial">
+              <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+            </form>
+            <button class type="submit"(click)="restablecerEditoriales()" class="bottonMore" >Restablecer Autores</button>
+            <button  type="submit"(click)="limpiarEditorial()" class="bottonEdit" >Limpiar Editorial Agregar</button>
+        </div>
+      
+
+        <div class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
+          <table class="table">
+
+              <thead class="tableTitles">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Opciones</th>
+
+              </thead>
+              <tbody>
+
+                        <tr *ngFor='let editorial of editoriales' >
+
+                              <th>
+                                  <span>{{editorial.nombre}}</span>
+                              </th>
+                        
+                              <td>
+                                  <button button class="bottonEdit" (click)="agregarEditorial(editorial)" >
+                        
+                                      Añadir Editorial al libro
+                              
+                                  </button>
+
+
+                              </td>
+
+                        </tr>
+                  
+              </tbody>
+
+              </table>
+
+        </div>
+  </div> 
+
+  <br>
+
+  <h6 style ="text-align: center;">Editorial actual a agregar = <span *ngIf="existeEditorial==true" >{{editorialActual.nombre}}</span></h6>
+<!--agregarImagen-->
+<div class="title" style="text-align: center;">Añade imagen</div>
+<div style="text-align: center;">
+  <input type = "file" accept=".png, .jpg, .jpeg" (change)="cargarImagen($event)" enctype="multipart/form-data">
+</div>
+<br>
+<div *ngIf ="imagenPrevisualizacion" style="text-align: center;">
+  <label>Pre-visualizacion de la imagen:   </label>
+  <br>
+  <img [src]="imagenPrevisualizacion" style="width: 150px;">
+  
+ </div>
+    <!--Validad-->
+    <div style="text-align: center;">
+      <br>
+            <button type="submit"  class="btn btn-success" (click)="validar()">
+              Validar Formulario
+            </button>
+        
+        <div *ngIf="existeAutor == false"
+          class="error"
+          style="color: red;"
+        >
+          Falta agregar Autor
+
+        </div>
+        <div *ngIf="existeEditorial == false"
+          class="error"
+          style="color: red;"
+        >
+          Falta agregar Editorial
+
+        </div>
+        <div *ngIf="existeImagen == false"
+          class="error"
+          style="color: red;"
+        >
+          Falta agregar Imagen
+
+        </div>
+        <div *ngIf="libro.invalid == true"
+          class="error"
+          style="color: red;"
+        >
+          Error en el formulario
+
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
+    <!--boton-->
+    <div style="text-align: center;">
+      <br>
+            <button type="submit" [disabled]="agregarLibroOpcion" class="btn btn-success" (click)="agregarLibro()">
+              agregar Libro
+            </button>
+        </div>
 
+<br>
   <!--boton cancelar-->
   <div style="padding-left: 2cm">
         <button  class ="bottonVolver" ngbNavLink routerLink="/stock" routerLinkActive="active" type="submit">
-                    cancelar
+                    Volver
         </button>
 
   </div>
 
+
+<br>
 

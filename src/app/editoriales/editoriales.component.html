@@ -1,4 +1,4 @@
-<div class="title">Editoriales actuales<span *ngIf="editar==true">/ editar editorial</span></div>
+<div class="title">Editoriales actuales al {{LocalDate | date:"dd-MM-yyyy"}}<span *ngIf="editar==true">/ editar editorial</span></div>
 
 <div *ngIf="editar==false">
     <div style="padding-left: 30px;">
@@ -14,12 +14,12 @@
             <input type="text" placeholder="filtrar por nombre editorial" name="filtro" [(ngModel)]="filtro">
             <button class type="submit"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
           </form>
-          <div id="busqueda"><strong>+</strong> </div>
-          <button class type="submit"(click)="restablecerEditoriales()" class="bottonMore" >restablecer Autores</button>
+          <div id="busqueda"><strong>Apretar restablecer despues de la busqueda</strong> </div>
+          <button class type="submit"(click)="restablecerEditoriales()" class="bottonMore" >Restablecer Autores</button>
     </div>
     </div>
 
-    <div class="divTable">   
+    <div class="divTable table-wrapper-scroll-y my-custom-scrollbar">   
         <table class="table">
     
              <thead class="tableTitles">
@@ -66,7 +66,7 @@
                 <div class="form-group" style="padding-left: 5cm; padding-right: 5cm;">
                     <label for="cantdidadEditada">Nombre al que desea cambiar de editorial</label>
                     <input class="form-control" type="text" formControlName="entradaNombre" placeholder="Ingrese el nuevo nombre de la editorial" [(ngModel)]="nuevoNombre">
-                    <label for="cantdidadEditada">Nombre anterior editorial : {{editorialEditar.nombre}}</label>
+                    <b><label for="cantdidadEditada">Nombre anterior editorial : {{editorialEditar.nombre}}</label></b>
                 </div>
 
                 <div style="padding-left: 5cm">

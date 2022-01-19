@@ -36,6 +36,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  createFormPassword() {
+    this.loginUser = this._fb.group({
+      nombre: ["", Validators.email]
+    });
+  }
+
   ngOnInit(): void { 
     this.createForm();
   }
@@ -56,5 +62,7 @@ export class LoginComponent implements OnInit {
     }, err => {
        this.existeError=true;
     }))
-  } 
+  }
+  
+
 }

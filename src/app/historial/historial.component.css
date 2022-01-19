@@ -48,7 +48,7 @@
 }
 #barraBusqueda{
     padding-top: 1cm;
-    float: right
+    padding-left: 2em;
 }
 .bottonAdd{
     font-weight: bold;

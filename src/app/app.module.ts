@@ -20,7 +20,6 @@ import { AgregarEditorialComponent } from './agregar-editorial/agregar-editorial
 import { AutoresComponent } from './autores/autores.component';
 import { EditorialesComponent } from './editoriales/editoriales.component';
 import { AgregarLibroComponent } from './agregar-libro/agregar-libro.component';
-import { EnviarConsultaComponent } from './enviar-consulta/enviar-consulta.component';
 import { HistorialComponent } from './historial/historial.component';
 import { AuthInterceptorService } from './auth-interceptor.service';
 import { LogoutComponent } from './logout/logout.component';
@@ -42,7 +41,6 @@ import { VigilanteGuard } from './vigilante.guard';
     AutoresComponent,
     EditorialesComponent,
     AgregarLibroComponent,
-    EnviarConsultaComponent,
     HistorialComponent,
     LogoutComponent,
 
@@ -67,7 +65,6 @@ import { VigilanteGuard } from './vigilante.guard';
       {path: 'editoriales',component: EditorialesComponent,canActivate: [VigilanteGuard]},
       {path: 'editoriales/agregarEditorial', component: AgregarEditorialComponent,canActivate: [VigilanteGuard]},
       {path: 'historial',component: HistorialComponent,canActivate: [VigilanteGuard]},
-      {path: 'enviarConsulta',component:EnviarConsultaComponent},
       {path: '',redirectTo:'welcome', pathMatch:'full'},
       {path: '**', component:PageNotFoundComponent}]
     )
